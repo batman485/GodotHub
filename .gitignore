@@ -87,6 +87,9 @@ web_modules/
 .next
 out
 
+# Webpack build output
+.webpack
+
 # Nuxt.js build / generate output
 .nuxt
 dist
@@ -128,3 +131,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+yarn.lock
+
+# Testing
+installs

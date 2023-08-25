@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .list-menu {
+    transition: all 0.1s ease-in;
+    opacity: 0;
+    scale: 0;
+  }
+  .list-menu a {
+    cursor: pointer;
+  }
+  .list-menu-opened {
+    transition: all 0.1s ease-out;
+    opacity: 1;
+    scale: 1;
+  }
+  .truncate-reverse {
+    direction: rtl;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-900">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Godot Hub</title>
+  </head>
+  <body class="h-full">
+    <main>
+      <!-- Header -->
+      <header>
+        <div class="border-b border-gray-200 py-6 px-8 flex items-center justify-between">
+          <div class="min-w-0 flex-1">
+            <h2 class="text-2xl font-bold leading-7 text-white">Installs</h2>
+          </div>
+          <div class="flex">
+            <button id="release-modal-button" type="button" disabled class="disabled:opacity-50 ml-3 inline-flex items-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm enabled:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Install Release</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Install List -->
+      <div class="border-t border-white/10 px-8">
+        <ul id="download-list" role="list" class="divide-y divide-gray-800"></ul>
+        <ul id="install-list" role="list" class="divide-y divide-gray-800">
+          <div role="status" class="m-auto pt-8">
+            <svg aria-hidden="true" class="w-8 h-8 m-auto text-gray-200 animate-spin dark:text-gray-600 fill-indigo-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+            </svg>
+            <span class="sr-only">Loading...</span>
+          </div>
+        </ul>
+      </div>
+    </main>
+    <div id="release-modal" class="hidden z-10">
+      <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="release-modal-close fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" tabindex="0"></div>
+        <div class="pointer-events-none fixed inset-0 z-10">
+          <div class="flex h-full max-w-5xl my-0 mx-auto items-end justify-center p-2 sm:p-16 text-center items-center">
+            <div class="pointer-events-auto relative transform overflow-hidden rounded-lg bg-gray-900 h-full text-left shadow-xl transition-all w-full max-w-5/6">
+              <div class="absolute right-2 top-2 pr-4 pt-4">
+                <button type="button" class="release-modal-close rounded-md bg-gray-900 text-white hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <span class="sr-only">Close</span>
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="m-0 p-0 text-left h-full">
+                <h3 class="text-xl mt-6 px-6 pb-6 font-semibold border-b border-gray-200 leading-6 text-white" id="modal-title">Releases</h3>
+                <ul id="release-list" role="list" class="divide-y divide-gray-600 pb-20 max-h-full overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-white"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="install-modal" class="hidden z-20">
+      <div class="relative z-20" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 z-20 overflow-y-auto">
+          <div class="flex min-h-full justify-center text-center items-center p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-gray-900 text-left shadow-xl transition-all my-8 w-full max-w-md p-6">
+              <div class="absolute right-2 top-2 pr-4 pt-4">
+                <button type="button" class="install-modal-close rounded-md bg-gray-900 text-white hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <span class="sr-only">Close</span>
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="m-0 p-0 text-left h-full">
+                <h3 class="text-xl pb-6 font-semibold border-b border-gray-200 leading-6 text-white" id="install-modal-title">Install 4.0.4</h3>
+                <div class="flex flex-row gap-x-4 mb-6">
+                  <div class="mt-6 flex-1">
+                    <label for="version" class="block text-sm font-medium leading-6 text-indigo-500">Version</label>
+                    <select id="version" name="version" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <option value="standard" selected>Godot Standard</option>
+                      <option value="mono">Godot Mono (.NET)</option>
+                    </select>
+                  </div>
+                  <div class="mt-6 flex-2">
+                    <label for="arch" class="block text-sm font-medium leading-6 text-indigo-500">Architecture</label>
+                    <select id="arch" name="arch" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-black ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <option value="64" selected>64-bit</option>
+                      <option value="32">32-bit</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <label for="location" class="block text-sm font-medium leading-6 text-indigo-500">Location</label>
+                  <div class="flex flex-row gap-x-4 border-b border-t border-gray-800 py-2">
+                    <p id="install-modal-folder" class="cursor-default text-white grow truncate-reverse" title="B:\Programming\Applications\godothub\.webpack\installs">B:\Programming\Applications\godothub\.webpack\installs</p>
+                    <button id="install-modal-selectfolder" type="button" class="flex-none rounded-md bg-gray-900 text-white hover:text-indigo-500 focus:outline-none">
+                      <span class="sr-only">Change Install Folder</span>
+                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-10 border-t border-gray-600 flex flex-row-reverse">
+                <button id="install" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-indigo-500 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 ml-3 w-auto">Install</button>
+                <button type="button" class="install-modal-close mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 w-auto">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="uninstall-modal" class="hidden z-20">
+      <div class="relative z-20" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 z-20 overflow-y-auto">
+          <div class="flex min-h-full justify-center text-center items-center p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-gray-900 text-left shadow-xl transition-all my-8 w-full max-w-md p-6">
+              <div class="absolute right-2 top-2 pr-4 pt-4">
+                <button type="button" class="uninstall-modal-close rounded-md bg-gray-900 text-white hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <span class="sr-only">Close</span>
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="m-0 p-0 text-left h-full">
+                <h3 id="uninstall-modal-title" class="text-xl pb-6 font-semibold border-b border-gray-200 leading-6 text-white">Uninstall 4.0.4</h3>
+                <p id="uninstall-modal-message" class="text-white mt-2 font-bold">Are you sure you wish to uninstall Godot 4.0.4?</p>
+                <p class="text-white mt-2 font-light">Note: Your projects and settings will not be deleted and you will be able to access them again once you reinstall this release.</p>
+              </div>
+              <div class="mt-10 border-t border-gray-600 flex flex-row-reverse">
+                <button id="uninstall" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-red-500 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 ml-3 w-auto">Uninstall</button>
+                <button type="button" class="uninstall-modal-close mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 w-auto">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cover" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  </body>
+</html>
