@@ -33,6 +33,7 @@ const xdata = {
 let downloadListItem = {};
 let installOptions = {id: 0, arch: '64', type: 'standard', location: ''};
 let uninstallOptions = {id: 0, name: '', location: ''};
+let isFolderSelectOpen = false;
 
 const setup = () => {
     setupLists();
@@ -174,18 +175,24 @@ const setupReleaseModal = () => {
     });
 
     installFolderButton.addEventListener("click", async (e) => {
-        cover.classList.remove('hidden');
+        if(!isFolderSelectOpen) {
+            isFolderSelectOpen = true;
+            installFolderButton.disabled = true;
+            cover.classList.remove('hidden');
 
-        const filePath = await window.system.selectFolder(storage.getInstallLocation());
-        if(filePath) {
-            installFolderText.innerText = filePath;
-            installFolderText.title = filePath;
+            const filePath = await window.system.selectFolder(storage.getInstallLocation());
+            if(filePath) {
+                installFolderText.innerText = filePath;
+                installFolderText.title = filePath;
 
-            installOptions.location = filePath;
-            storage.setSettingLocation(filePath);
+                installOptions.location = filePath;
+                storage.setSettingLocation(filePath);
+            }
+
+            installFolderButton.disabled = false;
+            cover.classList.add('hidden');
+            isFolderSelectOpen = false;
         }
-
-        cover.classList.add('hidden');
     });
     installVersionSelect.addEventListener("change", (event) => {
         const type = event.target.value;
