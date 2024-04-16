@@ -1,7 +1,7 @@
 {
   "name": "GodotHub",
   "productName": "Godot Hub",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A launcher for different Godot versions",
   "main": ".webpack/main",
   "scripts": {
@@ -14,7 +14,7 @@
   "keywords": [],
   "author": {
     "name": "Christian Carman",
-    "email": "ccarman@weekendwarriorsstudio.com"
+    "email": "support@cx3tech.com"
   },
   "license": "MIT",
   "devDependencies": {
@@ -32,6 +32,7 @@
     "style-loader": "^3.0.0"
   },
   "dependencies": {
+    "@electron-forge/publisher-github": "^6.4.1",
     "@tailwindcss/forms": "^0.5.4",
     "adm-zip": "^0.5.10",
     "autoprefixer": "^10.4.15",

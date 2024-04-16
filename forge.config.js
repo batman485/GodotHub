@@ -1,17 +1,29 @@
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: './src/icons/icon',
-    extraResource: []
+    icon: "./src/icons/icon",
+    extraResource: [],
   },
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "batman485",
+          name: "GodotHub",
+        },
+        prerelease: true,
+      },
+    },
+  ],
   rebuildConfig: {},
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
       config: {
-        iconUrl: 'https://weekendwarriorsstudio.com/godothub/icon.ico',
-        setupIcon: './src/icons/icon.ico'
-      }
+        iconUrl: "https://cx3tech.com/app/godothub/icon.ico",
+        setupIcon: "./src/icons/icon.ico",
+      },
     },
     {
       name: "@electron-forge/maker-zip",
@@ -21,8 +33,8 @@ module.exports = {
       name: "@electron-forge/maker-deb",
       config: {
         options: {
-          icon: './src/icons/icon.png'
-        }
+          icon: "./src/icons/icon.png",
+        },
       },
     },
     {

@@ -284,7 +284,7 @@ const getLastestRelease = async () => {
 }
 const getAllReleases = async () => {
   if(net.isOnline()) {
-    const response = await net.fetch(`https://api.github.com/repos/${gitUser}/${gitRepo}/releases`);
+    const response = await net.fetch(`https://api.github.com/repos/${gitUser}/${gitRepo}/releases?per_page=100`);
     if (response.ok) {
       return await response.json();
     }

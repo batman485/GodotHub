@@ -110,11 +110,11 @@ const setupStorage = async () => {
 
             if(gitReleases && gitReleases != {}) {
                 gitReleases.forEach(release => {
-                    let version = parseInt(release.name[0]);
+                    let version = parseInt(release.tag_name[0]);
                     if(version > 2 && release.assets.length > 0) {
                         let validRelease = {
                             id: release.id,
-                            name: release.name,
+                            name: release.tag_name,
                             version: version,
                             created: new Date(release.created_at).getTime(),
                             published: new Date(release.published_at).getTime(),
