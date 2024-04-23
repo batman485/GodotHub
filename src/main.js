@@ -41,6 +41,7 @@ const state = {
 }
 
 let isDialogOpen = false;
+let isQuitting = false;
 
 let isSingleInstance = app.requestSingleInstanceLock()
 if (!isSingleInstance) {
@@ -70,6 +71,18 @@ const createWindow = () => {
   });
 
   mainWindow.on('ready-to-show', () => mainWindow.show());
+  mainWindow.on('minimize',function(event){
+    event.preventDefault();
+    mainWindow.hide();
+  });
+  mainWindow.on('close', function (event) {
+    if(!isQuitting){
+        event.preventDefault();
+        mainWindow.hide();
+    }
+
+    return false;
+  });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -107,7 +120,11 @@ const createTrayContext = (installs) => {
     context.push({ label: '', type: 'separator' });
   }
 
-  context.push({ label: 'Quit', type: 'normal', click: () => app.quit() });
+  context.push({ label: 'Quit', type: 'normal', click: () => {
+    isQuitting = true;
+    app.quit();
+  }});
+
   return context;
 }
 
@@ -136,11 +153,6 @@ app.on('ready', () => {
   });
 
   createWindow();
-});
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
 });
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
